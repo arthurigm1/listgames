@@ -2,6 +2,7 @@ package com.apijogos.listgames.Dto;
 
 
 import com.apijogos.listgames.Model.Game;
+import com.apijogos.listgames.Projections.GameMinProjection;
 
 public class GameMindto {
 
@@ -41,6 +42,14 @@ public class GameMindto {
         this.year = game.getYear();
         this.shortDescription = game.getShortDescription();
         this.imgUrl = game.getImgUrl();
+    }
+
+    public GameMindto(GameMinProjection gameMinProjection) {
+        this.id = gameMinProjection.getId();
+        this.title = gameMinProjection.getTitle();
+        this.year = gameMinProjection.getYear();
+        this.shortDescription = gameMinProjection.getShortDescription();
+        this.imgUrl = gameMinProjection.getImgUrl();
     }
 
 }
