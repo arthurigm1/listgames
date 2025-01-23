@@ -2,14 +2,12 @@ package com.apijogos.listgames.Controller;
 
 import com.apijogos.listgames.Dto.GameListdto;
 import com.apijogos.listgames.Dto.GameMindto;
+import com.apijogos.listgames.Dto.Replacementdto;
 import com.apijogos.listgames.Service.GameListService;
 import com.apijogos.listgames.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,16 +21,27 @@ public class GameListController {
     @Autowired
     private GameService gameService;
 
-    @GetMapping(value = "")
-    public List<GameListdto> findgameList() {
-        List<GameListdto> result = gameListService.findgameList();
+    @GetMapping(value = "/{id}")
+    public GameListdto findById(@PathVariable Long id) {
+        GameListdto result = gameListService.findById(id);
         return result;
     }
 
-    @GetMapping(value = "{listId}/games")
-    public List<GameMindto> findByList(@PathVariable Long listId) {
+    @GetMapping
+    public List<GameListdto> findAll() {
+        List<GameListdto> result = gameListService.findAll();
+        return result;
+    }
+
+    @GetMapping(value = "/{listId}/games")
+    public List<GameMindto> findGames(@PathVariable Long listId) {
         List<GameMindto> result = gameService.findgameListbyid(listId);
         return result;
+    }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public void move(@PathVariable Long listId, @RequestBody Replacementdto body) {
+        gameListService.move(listId, body.getSourceIndex(), body.getDestinationIndex());
     }
 
 

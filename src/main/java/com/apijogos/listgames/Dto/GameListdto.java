@@ -6,6 +6,7 @@ public class GameListdto {
 
     private Long id;
     private String name;
+
     public GameListdto() {}
 
     public GameListdto(GameList entity) {
